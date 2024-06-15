@@ -1,11 +1,11 @@
 import mongoose, {Schema, Document} from "mongoose";
 
-export interface Message extends Document {
+export interface Feedback extends Document {
     content: string,
     createdAt: Date
 }
 
-const messageSchema: Schema<Message> = new Schema({
+const feedbackSchema: Schema<Feedback> = new Schema({
     content: {
         type: String,
         required: true
@@ -18,11 +18,15 @@ const messageSchema: Schema<Message> = new Schema({
 })
 
 const reviewSchema = new Schema({
-    username: {
+    userId: {
         type: Schema.Types.ObjectId,
         ref: "User"
     },
-    messages: [messageSchema]
+    question: {
+        type: String,
+        required: [true, "Question is required."]
+    },
+    feedback: [feedbackSchema]
 })
 
 const Review = mongoose.models.Review || mongoose.model("Review", reviewSchema)

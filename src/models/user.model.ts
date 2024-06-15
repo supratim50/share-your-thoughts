@@ -8,7 +8,7 @@ export interface User extends Document{
     verifyCodeExpiry: Date,
     isVerified: boolean,
     isAcceptingMessage: boolean,
-    reviews: []
+    reviews: [String]
 }
 
 const userSchema: Schema<User> = new Schema({

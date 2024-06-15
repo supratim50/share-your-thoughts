@@ -25,11 +25,11 @@ export async function POST(request:NextRequest) {
             password: hashedPassword
         })
 
-        const savedUser = await  newUser.save();
+        const savedUser = await newUser.save();
         console.log(savedUser);
         
         const mail = await sendMail({email, emailType:"VERIFY", userId: savedUser._id});
-        console.log((mail));
+        // console.log((mail));
         
 
         return NextResponse.json({
