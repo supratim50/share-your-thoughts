@@ -1,4 +1,5 @@
 import UserModel from "@/models/user.model";
+import { setToken } from "@/utils/setToken";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request:NextRequest) {
@@ -22,10 +23,15 @@ export async function POST(request:NextRequest) {
 
         await user.save();
 
-        return NextResponse.json({
+        const response = NextResponse.json({
             message: "OTP is verified.",
             success: true
         })
+
+        const token:any = setToken(user);
+        response.cookies.set("token", token, {httpOnly: true})
+
+        return response;
 
     } catch (error) {
         console.log(error);

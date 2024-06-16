@@ -18,9 +18,9 @@ const feedbackSchema: Schema<Feedback> = new Schema({
 })
 
 const reviewSchema = new Schema({
-    userId: {
-        type: Schema.Types.ObjectId,
-        ref: "User"
+    username: {
+        type: String,
+        required: true
     },
     question: {
         type: String,

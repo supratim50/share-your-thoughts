@@ -3,6 +3,7 @@ import { dbConnect } from "@/dbConfig/dbConfig";
 import bcryptjs from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
+import { setToken } from "@/utils/setToken";
 
 export async function POST(request: NextRequest) {
     try {
@@ -20,15 +21,8 @@ export async function POST(request: NextRequest) {
         if(!isCorrectPassword) {
             return NextResponse.json({error: "Plese check your username and password."}, {status: 400})
         }
-
-        const tokenData = {
-            id: user._id,
-            email: user.email,
-            username: user.username
-        }
-
-        const token = jwt.sign(tokenData, process.env.TOKEN_SECRET!, {expiresIn: '1d'});
-
+        
+        const token:any = setToken(user);
         const response = NextResponse.json({
             message: "User has logged in successfully.",
             success: true,
